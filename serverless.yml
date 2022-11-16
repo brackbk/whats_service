@@ -1,0 +1,30 @@
+service: whats-service
+
+provider:
+  name: aws
+  runtime: python3.8
+  stage: prod
+  region: sa-east-1
+
+plugins:
+  - serverless-python-requirements
+
+package:
+  individually: true
+
+functions:
+  whats_service:
+    handler: main.whats_service
+    timeout: 60 #seconds
+    environment:
+      # SLACK_API_TOKEN: xoxb-705796297936-1343645851824-nVjDmFewqGoBVdUj3El6F55i
+      # SLACK_DEFAULT_CHANNEL: C01BTHM7Z99
+      TWILIO_ACCOUNT_SID: ACace46781e4fad2732a66232a9dc6350f
+      TWILIO_AUTH_TOKEN: 74848fa0eee7c106f7e8ba91fbcd2b5b
+      TWILIO_FROM: "+13177592484"
+    package:
+      patterns:
+        - "!node_modules/**"
+        - "!yarn.lock"
+        - "!package-lock.json"
+        - "!package.json"
